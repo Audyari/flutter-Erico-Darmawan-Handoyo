@@ -1,68 +1,138 @@
-Text Widget
+ Stateless & Stateful Widget
 
-=============================
+=================================
 
-properti nya : 
+Stateless Widget:
+1. Stateless widget adalah widget yang tidak memiliki state (keadaan) internal yang dapat berubah.
+2. Widget ini hanya dibuat satu kali dan tidak pernah berubah selama siklus hidup aplikasi.
+3. Penggunaan utama stateless widget adalah untuk menampilkan UI yang tidak berubah, seperti ikon, teks, atau gambar.
+4. Contoh stateless widget: Text, Icon, Image.
 
-1. data: Merupakan teks yang akan ditampilkan.
-2. style: Mengatur gaya teks, seperti font, ukuran, warna, dan lainnya.
-3. textAlign: Mengatur alignment teks, seperti rata kiri, kanan, tengah, atau justify.
-4. textDirection: Mengatur arah teks, apakah dari kiri ke kanan atau kanan ke kiri.
-5. softWrap: Mengatur apakah teks akan dibungkus ke baris baru jika melebihi lebar yang tersedia.
-6.overflow: Mengatur perilaku jika teks melebihi ruang yang tersedia, seperti memotong, menampilkan titik-titik, atau menampilkan teks secara penuh.
-7. maxLines: Membatasi jumlah baris teks yang akan ditampilkan.
-8. textScaleFactor: Mengatur faktor penskalaan ukuran teks.
-9. semanticsLabel: Memberikan label semantik untuk teks, yang berguna untuk aksesibilitas.
-10. textWidthBasis: Mengatur basis lebar teks, apakah berdasarkan karakter atau layout.
 
-===================================
+==============================
 
-code sederhana :
+Stateful Widget:
+1. Stateful widget adalah widget yang memiliki state (keadaan) internal yang dapat berubah.
+2. Widget ini dapat diubah dan diperbarui selama siklus hidup aplikasi.
+3. Penggunaan utama stateful widget adalah untuk menampilkan UI yang dapat berubah, seperti input pengguna, animasi, atau data yang berubah.
+4. Stateful widget memiliki dua kelas: StatefulWidget dan State.
+5. StatefulWidget bertugas untuk membuat instance State.
+6. State bertugas untuk mengelola state dan memperbarui UI.
+
+======================================================
+
+
+contoh buat counter sederhana pake Stateful :
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _count = 0;
+
+  void _onPressed() {
+    setState(() {
+      _count++;
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Belajar Stateful',
       home: Scaffold(
-          appBar: AppBar(title: const Text('Testing Widget Text')),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: const Text(
-                    'Hello World!!!!!!!!!!!!!!!!!!!!!!!#################################################!!!!!!!!!!!',
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                      
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )),
+        appBar: AppBar(
+          title: const Text('Belajar Stateful'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$_count',
+                style: const TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _onPressed,
+                child: const Text('Tambah Bilangan'),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
 
+=========================================================
 
-=================================================
+update ke 2 : 
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _count = 0;
+  double _fontSize = 48.0;
+
+  void _onPressed() {
+    setState(() {
+      _count++;
+      _fontSize += 4.0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Belajar Stateful',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Center(child: Text('Belajar Stateful')),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$_count',
+                style: TextStyle(
+                  fontSize: _fontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _onPressed,
+                child: const Text('Tambah Bilangan'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+================================================
