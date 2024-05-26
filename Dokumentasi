@@ -1,19 +1,26 @@
-Hello word flutter :
+Text Widget
 
-1. sisakan code seperti ini :
+=============================
+
+properti nya : 
+
+1. data: Merupakan teks yang akan ditampilkan.
+2. style: Mengatur gaya teks, seperti font, ukuran, warna, dan lainnya.
+3. textAlign: Mengatur alignment teks, seperti rata kiri, kanan, tengah, atau justify.
+4. textDirection: Mengatur arah teks, apakah dari kiri ke kanan atau kanan ke kiri.
+5. softWrap: Mengatur apakah teks akan dibungkus ke baris baru jika melebihi lebar yang tersedia.
+6.overflow: Mengatur perilaku jika teks melebihi ruang yang tersedia, seperti memotong, menampilkan titik-titik, atau menampilkan teks secara penuh.
+7. maxLines: Membatasi jumlah baris teks yang akan ditampilkan.
+8. textScaleFactor: Mengatur faktor penskalaan ukuran teks.
+9. semanticsLabel: Memberikan label semantik untuk teks, yang berguna untuk aksesibilitas.
+10. textWidthBasis: Mengatur basis lebar teks, apakah berdasarkan karakter atau layout.
+
+===================================
+
+code sederhana :
 
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-2. ketik stl biar cepet 
-3. nama file nya samakan MyApp
-
-
-
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,25 +32,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hello World App',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hello World'),
-        ),
-        body: const Center(
-          child: Text(
-            'Hello World!',
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
+          appBar: AppBar(title: const Text('Testing Widget Text')),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 100,
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: const Text(
+                    'Hello World!!!!!!!!!!!!!!!!!!!!!!!#################################################!!!!!!!!!!!',
+                    maxLines: 3,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }
 
 
 
-==============================================
+=================================================
