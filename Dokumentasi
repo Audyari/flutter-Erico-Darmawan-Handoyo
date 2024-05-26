@@ -1,70 +1,126 @@
- Stateless & Stateful Widget
+Anonymous Method
 
-=================================
+==========================
 
-Stateless Widget:
-1. Stateless widget adalah widget yang tidak memiliki state (keadaan) internal yang dapat berubah.
-2. Widget ini hanya dibuat satu kali dan tidak pernah berubah selama siklus hidup aplikasi.
-3. Penggunaan utama stateless widget adalah untuk menampilkan UI yang tidak berubah, seperti ikon, teks, atau gambar.
-4. Contoh stateless widget: Text, Icon, Image.
+Di Flutter, Anonymous Method (atau juga disebut sebagai Lambda Expression) adalah sebuah fungsi
+tanpa nama yang dapat digunakan sebagai argumen dalam pemanggilan fungsi lain. Ini sangat berguna
+ketika Anda hanya memerlukan sebuah fungsi sederhana untuk digunakan sebagai callback atau event handler.
 
 
-==============================
 
-Stateful Widget:
-1. Stateful widget adalah widget yang memiliki state (keadaan) internal yang dapat berubah.
-2. Widget ini dapat diubah dan diperbarui selama siklus hidup aplikasi.
-3. Penggunaan utama stateful widget adalah untuk menampilkan UI yang dapat berubah, seperti input pengguna, animasi, atau data yang berubah.
-4. Stateful widget memiliki dua kelas: StatefulWidget dan State.
-5. StatefulWidget bertugas untuk membuat instance State.
-6. State bertugas untuk mengelola state dan memperbarui UI.
+1. Buat StatefulWidget dengan nama MyApp.
+2. Di dalam MyApp, buat MaterialApp.
+3. Pada home, buat Scaffold.
+4. Di dalam AppBar, buat teks "Testing".
+5. Di dalam body, buat Center.
+6. Di dalam Center, buat Column.
+7. Atur MainAxisAlignment Column menjadi center.
+8. Di dalam children Column, buat widget-widget.
+9. Buat Text dengan teks "Ini adalah text".
+10. Buat RaisedButton.
+11. Di dalam child RaisedButton, buat teks "Tekan saya".
+12. Pada onPressed RaisedButton, buat fungsi.
+13. Di dalam fungsi, buat variabel _message dengan nilai awal "Ini adalah text".
+14. Buat fungsi _buttonPressed().
+15. Di dalam _buttonPressed(), ubah nilai _message menjadi "Tombol sudah di tekan".
+16. Gunakan setState() untuk memperbarui state aplikasi.
+
+
+================================
+
+contoh code nya : 
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String _message = "Ini Adalah Text";
+
+  void _buttonPressed() {
+    setState(() {
+      _message = "Tombol Sudah Di tekan";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Testing',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Testing'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            
+            children: [
+              Text(_message),
+              const SizedBox(height: 16.0), // Menambahkan jarak vertikal sebesar 16 poin
+              ElevatedButton(
+                onPressed: _buttonPressed,
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
 
 ======================================================
 
-
-contoh buat counter sederhana pake Stateful :
+contoh lain : 
 
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  // ignore: library_private_types_in_public_api
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  int _count = 0;
+  String _message = "Ini Adalah Text";
 
-  void _onPressed() {
-    setState(() {
-      _count++;
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Belajar Stateful',
+      title: 'Testing',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Belajar Stateful'),
-        ),
+        appBar:
+            AppBar(title: const Center(child: Text('Test Anonymous Method'))),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '$_count',
-                style: const TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 32.0),
+              Text(_message),
+              const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: _onPressed,
-                child: const Text('Tambah Bilangan'),
+                onPressed: () => setState(() => _message = "Tombol 1 Di Tekan"),
+                child: const Text('Ok'),
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () => setState(() => _message = "Tombol 2 Di Tekan"),
+                child: const Text('Ok'),
               ),
             ],
           ),
@@ -75,64 +131,4 @@ class _MyAppState extends State<MyApp> {
 }
 
 
-=========================================================
-
-update ke 2 : 
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  int _count = 0;
-  double _fontSize = 48.0;
-
-  void _onPressed() {
-    setState(() {
-      _count++;
-      _fontSize += 4.0;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Belajar Stateful',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text('Belajar Stateful')),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '$_count',
-                style: TextStyle(
-                  fontSize: _fontSize,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: _onPressed,
-                child: const Text('Tambah Bilangan'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-================================================
+==========================================
